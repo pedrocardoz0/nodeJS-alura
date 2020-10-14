@@ -1,0 +1,22 @@
+<include('./layout.marko')>
+   <@cabecalho>
+       <h1>Testing Home</h1>
+   </@cabecalho>
+</include>
+
+$ var livrosPromise = new Promise((resolve, reject) => {
+   setTimeout(function() {
+       resolve([
+           {
+               titulo: 'Cangaceiro Node'
+           },
+           {
+               titulo: 'Node na prática'
+           }
+       ]);
+   }, 1000);
+});
+
+<await(livros from livrosPromise)>
+   <div for (livro in livros)>Título: ${livro.titulo}</div>
+</await>
