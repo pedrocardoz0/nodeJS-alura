@@ -10,6 +10,7 @@
   "author": "Pedro Cardozo",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "1.18.3",
     "express": "^4.16.3",
     "marko": "4.13.4-1",
     "sqlite3": "^5.0.0"
