@@ -1,4 +1,5 @@
 const app = require('./src/config/custom-express');
 
-
-app.listen(3000, () => console.log(`Server Running on Port 3000`));
+app.listen(3000, function() {
+    console.log(`Servidor rodando na porta 3000`);
+});
