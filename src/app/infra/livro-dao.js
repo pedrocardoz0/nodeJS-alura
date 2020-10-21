@@ -1,3 +1,5 @@
+const db = require('../../config/database')
+
 class LivroDao {
 
     constructor(db) {
