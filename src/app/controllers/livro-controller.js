@@ -1,9 +1,10 @@
 const LivroDao = require('../infra/livro-dao');
 const db = require('../../config/database')
+const { check, validationResult } = require('express-validator/check')
 
 class LivroController {
 
-    static routes() {
+    static rotas() {
         return {
             lista: '/livros',
             cadastro: '/livros/form',
@@ -37,6 +38,7 @@ class LivroController {
 
     showForm() {
         return function (req, resp) {
+            console.log(`i running`)
             resp.marko(require('../views/livros/form/form.marko'), { livro: {} });
         }
     }
@@ -63,7 +65,7 @@ class LivroController {
             const livroDao = new LivroDao(db);
 
             livroDao.atualiza(req.body)
-                .then(resp.redirect(LivroController.routes().lista))
+                .then(resp.redirect(LivroController.rotas().lista))
                 .catch(erro => console.log(erro));
         }
     }
@@ -81,22 +83,28 @@ class LivroController {
 
     insert() {
         return function (req, resp) {
-
             const livroDao = new LivroDao(db);
+            console.log(livroDao)
 
             const erros = validationResult(req);
 
-            if (!erros.isEmpty()) return resp.marko(
-                require('../views/livros/form/form.marko'),
-                {
-                    livro: req.body,
-                    errosValidacao: erros.array()
-                }
-            )
+            if (!erros.isEmpty()) {
+                return resp.marko(
+                    require('../views/livros/form/form.marko'),
+                    {
+                        livro: req.body,
+                        errosValidacao: erros.array()
+                    }
+                )
+            } 
 
             livroDao.adiciona(req.body)
-                .then(resp.redirect(LivroController.routes().lista))
-                .catch(erro => console.log(erro));
+                .then(() => {
+                    resp.redirect(LivroController.rotas().lista)
+                })
+                .catch(erro => { 
+                    console.log(erro)
+                });
         }
     }
 }
