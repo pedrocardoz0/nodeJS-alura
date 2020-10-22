@@ -1,8 +1,12 @@
-const BaseController = require('../controllers/base-controller');
-const baseController = new BaseController();
+const BaseControlador = require('../controladores/base-controlador');
+const baseControlador = new BaseControlador();
 
 module.exports = (app) => {
-    const rotasBase = BaseController.rotas();
+    const rotasBase = BaseControlador.rotas();
 
-    app.get(rotasBase.home, baseController.home());
+    app.get(rotasBase.home, baseControlador.home());
+
+    app.route(rotasBase.login)
+        .get(baseControlador.login())
+        .post(baseControlador.efetuaLogin());
 };

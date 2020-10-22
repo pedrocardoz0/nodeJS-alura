@@ -1,5 +1,5 @@
-const livroRotas = require('../rotas/livros-rotas');
-const baseRotas = require('../rotas/base-rotas');
+const livroRotas = require('./livro-rotas');
+const baseRotas = require('./base-rotas');
 
 module.exports = (app) => {
     baseRotas(app);
